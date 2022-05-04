@@ -10,4 +10,5 @@ ENV LC_ALL zh_CN.utf8
 RUN mkdir -p /usr/src/myapp
 WORKDIR /usr/src/myapp
 
-RUN sh rustup-init.sh -y
+COPY rustup-init.sh /root/rustup-init.sh
+RUN sh /root/rustup-init.sh -y
