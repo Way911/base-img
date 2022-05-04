@@ -11,5 +11,4 @@ RUN mkdir -p /usr/src/myapp
 WORKDIR /usr/src/myapp
 
 COPY rustup-init.sh /root/rustup-init.sh
-RUN sh /root/rustup-init.sh -y --quiet
-RUN source /root/.cargo/env
+RUN sh /root/rustup-init.sh -y --quiet && source /root/.cargo/env
