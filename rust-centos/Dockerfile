@@ -12,3 +12,4 @@ WORKDIR /usr/src/myapp
 
 COPY rustup-init.sh /root/rustup-init.sh
 RUN sh /root/rustup-init.sh -y
+RUN source $HOME/.cargo/env
