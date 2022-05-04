@@ -10,4 +10,4 @@ ENV LC_ALL zh_CN.utf8
 RUN mkdir -p /usr/src/myapp
 WORKDIR /usr/src/myapp
 
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+RUN sh rustup-init.sh -y
