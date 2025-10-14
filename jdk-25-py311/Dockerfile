@@ -4,6 +4,7 @@ FROM centos:7
 ADD ./CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo
 RUN yum update -y
 RUN yum -y install kde-l10n-Chinese glibc-common
+RUN yum install -y epel-release
 
 ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo '$TZ' > /etc/timezone
@@ -20,11 +21,12 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:
 
 
 RUN mkdir /opt/software \
-    && yum -y install vim net-tools telnet tree wget curl \
-    && yum install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel  gcc make libffi-devel -y
+    && yum -y install vim net-tools telnet tree wget curl openssl11 openssl11-devel \
+    && yum install zlib-devel bzip2 bzip2-devel openssl openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel  gcc make libffi-devel -y
 ADD ./Python-3.11.14.tgz /opt/software
 WORKDIR /opt/software/Python-3.11.14
-RUN ./configure --prefix=/usr/local/python3.11.14 --enable-shared CFLAGS=-fPIC \
+RUN export CFLAGS=$(pkg-config --cflags openssl11) && export LDFLAGS=$(pkg-config --libs openssl11) \
+    && ./configure --enable-optimizations --prefix=/usr/local/python3.11.14 --enable-shared CFLAGS=-fPIC \
     && make \
     && make install
 RUN mv /usr/bin/python /usr/bin/python2 \
