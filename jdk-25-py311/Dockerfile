@@ -26,7 +26,7 @@ RUN mkdir /opt/software \
 ADD ./Python-3.11.14.tgz /opt/software
 WORKDIR /opt/software/Python-3.11.14
 RUN export CFLAGS=$(pkg-config --cflags openssl11) && export LDFLAGS=$(pkg-config --libs openssl11) \
-    && ./configure --enable-optimizations --prefix=/usr/local/python3.11.14 --enable-shared CFLAGS=-fPIC \
+    && ./configure --prefix=/usr/local/python3.11.14 --enable-shared CFLAGS=-fPIC \
     && make \
     && make install
 RUN mv /usr/bin/python /usr/bin/python2 \
