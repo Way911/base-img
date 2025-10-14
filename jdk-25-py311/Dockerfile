@@ -22,11 +22,10 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:
 
 RUN mkdir /opt/software \
     && yum -y install vim net-tools telnet tree wget curl openssl11 openssl11-devel \
-    && yum install zlib-devel bzip2 bzip2-devel openssl openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel  gcc make libffi-devel -y
+    && yum install lzma zlib-devel bzip2 bzip2-devel openssl openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel  gcc make libffi-devel -y
 ADD ./Python-3.11.14.tgz /opt/software
 WORKDIR /opt/software/Python-3.11.14
-RUN export CFLAGS=$(pkg-config --cflags openssl11) && export LDFLAGS=$(pkg-config --libs openssl11) \
-    && ./configure --prefix=/usr/local/python3.11.14 --enable-shared CFLAGS=-fPIC \
+RUN CFLAGS=$(pkg-config --cflags openssl11) LDFLAGS=$(pkg-config --libs openssl11) ./configure --prefix=/usr/local/python3.11.14 \
     && make \
     && make install
 RUN mv /usr/bin/python /usr/bin/python2 \
