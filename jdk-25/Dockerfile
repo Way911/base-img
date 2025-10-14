@@ -1,7 +1,6 @@
 #base image
 FROM centos:7
 
-RUN cat /etc/os-release
 RUN curl -o /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-7.repo
 RUN yum update -y
 RUN yum -y install kde-l10n-Chinese glibc-common
