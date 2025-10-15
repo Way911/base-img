@@ -42,3 +42,4 @@ RUN source venv/bin/activate && \
     pip install numpy pandas xgboost-cpu -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     pip install .
 ENV LD_LIBRARY_PATH=/var/jep/venv/lib/python3.11/site-packages/jep
+ENV PATH="/var/jep/venv/bin:$PATH"
