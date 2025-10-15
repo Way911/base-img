@@ -18,6 +18,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-25-amazon-corretto
 ENV PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:$JAVA_HOME/bin
 
 
+# Python
 RUN mkdir -p /opt/software \
     && yum -y --allowerasing install vim net-tools telnet tree wget curl \
     && yum install --allowerasing lzma xz-devel zlib-devel bzip2 bzip2-devel openssl openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel -y
@@ -32,3 +33,9 @@ RUN ln -s /usr/local/python3.11/bin/python3 /usr/bin/python \
     && touch /etc/ld.so.conf.d/python.conf \
     && echo '/usr/local/python3.11/lib' >> /etc/ld.so.conf.d/python.conf \
     && ldconfig
+# Python JEP
+RUN pip install numpy pandas xgboost -i https://pypi.tuna.tsinghua.edu.cn/simple
+ADD ./jep /var/jep
+WORKDIR /var/jep
+RUN pip install .
+ENV LD_LIBRARY_PATH=/usr/local/python3.11/lib/python3.11/site-packages/jep
