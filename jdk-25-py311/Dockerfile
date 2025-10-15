@@ -34,8 +34,10 @@ RUN ln -s /usr/local/python3.11/bin/python3 /usr/bin/python \
     && echo '/usr/local/python3.11/lib' >> /etc/ld.so.conf.d/python.conf \
     && ldconfig
 # Python JEP
-RUN pip install numpy pandas xgboost -i https://pypi.tuna.tsinghua.edu.cn/simple
 ADD ./jep /var/jep
 WORKDIR /var/jep
-RUN pip install .
-ENV LD_LIBRARY_PATH=/usr/local/python3.11/lib/python3.11/site-packages/jep
+RUN python -m virtualenv --python=python3.11 venv
+RUN source venv/bin/activate && \
+    pip install numpy pandas xgboost -i https://pypi.tuna.tsinghua.edu.cn/simple && \
+    pip install .
+ENV LD_LIBRARY_PATH=/var/jep/venv/lib/python3.11/site-packages/jep
