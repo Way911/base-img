@@ -40,5 +40,5 @@ RUN pip install virtualenv -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     python -m virtualenv --python=python3.11 venv
 ENV PATH="/var/jep/venv/bin:$PATH"
 RUN pip install numpy pandas xgboost-cpu -i https://pypi.tuna.tsinghua.edu.cn/simple
-RUN pip install jep -i https://pypi.tuna.tsinghua.edu.cn/simple
+RUN pip install --no-build-isolation -v . -i https://pypi.tuna.tsinghua.edu.cn/simple
 ENV LD_LIBRARY_PATH=/var/jep/venv/lib/python3.11/site-packages/jep
