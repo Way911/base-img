@@ -36,7 +36,7 @@ RUN ln -s /usr/local/python3.11/bin/python3 /usr/bin/python \
 # Python JEP
 ADD ./jep /var/jep
 WORKDIR /var/jep
-RUN python -m virtualenv --python=python3.11 venv
+RUN /usr/local/python3.11/bin/python3 -m virtualenv --python=python3.11 venv
 RUN source venv/bin/activate && \
     pip install numpy pandas xgboost -i https://pypi.tuna.tsinghua.edu.cn/simple && \
     pip install .
