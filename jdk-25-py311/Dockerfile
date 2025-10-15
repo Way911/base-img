@@ -23,12 +23,12 @@ RUN mkdir -p /opt/software \
     && yum install --allowerasing lzma xz-devel zlib-devel bzip2 bzip2-devel openssl openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel -y
 ADD ./Python-3.11.14.tgz /opt/software
 WORKDIR /opt/software/Python-3.11.14
-RUN ./configure --enable-optimization --prefix=/usr/local/python3.11.14 --enable-shared CFLAGS=-fPIC \
+RUN ./configure --enable-optimization --prefix=/usr/local/python3.11 --enable-shared CFLAGS=-fPIC \
     && make \
     && make install
-RUN ln -s /usr/local/python3.11.14/bin/python3 /usr/bin/python \
-    && ln -s /usr/local/python3.11.14/bin/pip3 /usr/bin/pip3 \
-    && ln -s /usr/local/python3.11.14/bin/pip3 /usr/bin/pip \
+RUN ln -s /usr/local/python3.11/bin/python3 /usr/bin/python \
+    && ln -s /usr/local/python3.11/bin/pip3 /usr/bin/pip3 \
+    && ln -s /usr/local/python3.11/bin/pip3 /usr/bin/pip \
     && touch /etc/ld.so.conf.d/python.conf \
-    && echo '/usr/local/python3.11.14/lib' >> /etc/ld.so.conf.d/python.conf \
+    && echo '/usr/local/python3.11/lib' >> /etc/ld.so.conf.d/python.conf \
     && ldconfig
